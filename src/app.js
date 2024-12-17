@@ -1,3 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
+import dbConnection from './db/db.connection.js';
+dbConnection();
+
 import express from 'express';
 import authRoutes from './routes/auth.route.js';
 
