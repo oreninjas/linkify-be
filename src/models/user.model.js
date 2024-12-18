@@ -4,22 +4,22 @@ const userSchema = new Schema(
   {
     email: {
       type: String,
-      minlength: 8,
       required: true,
     },
     password: {
       type: String,
-      minlength: 8,
+      required: true,
     },
     profilePicture: {
       type: String,
       default: '',
     },
-    linkies: {
-      // FK
-      type: Schema.Types.ObjectId,
-      ref: 'linkiefy',
-    },
+    linkies: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'linkiefy',
+      },
+    ],
     isAdmin: {
       type: Boolean,
       default: false,
@@ -28,4 +28,6 @@ const userSchema = new Schema(
   { timestamps: true },
 );
 
-export const user = mongoose.model('user', userSchema);
+const user = mongoose.model('user', userSchema);
+
+export default user;
