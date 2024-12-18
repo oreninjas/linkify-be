@@ -17,7 +17,7 @@ const userSchema = new Schema(
     linkies: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'linkiefy',
+        ref: 'linkify',
       },
     ],
     isAdmin: {

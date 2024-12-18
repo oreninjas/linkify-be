@@ -1,6 +1,6 @@
 const { Schema, mongoose } = require('mongoose');
 
-const linkiefyModel = new Schema(
+const linkifyModel = new Schema(
   {
     createdBy: {
       type: Schema.Types.ObjectId,
@@ -13,7 +13,6 @@ const linkiefyModel = new Schema(
     },
     linkyImage: {
       type: String,
-      required: true,
     },
     categories: [],
     isPublished: {
@@ -24,6 +23,6 @@ const linkiefyModel = new Schema(
   { timestamps: true },
 );
 
-const linkiefy = mongoose.model('linkiefy', linkiefyModel);
+const linkiefy = mongoose.model('linkify', linkifyModel);
 
 export default linkiefy;
