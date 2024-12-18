@@ -62,7 +62,15 @@ const authController = {
     }
   },
   logout: (req, res) => {
-    res.send('Hello world!');
+    try {
+      res.cookie('auth_t', '', {
+        maxAge: 0,
+      });
+      res.status(200).json({ message: 'Logged Out' });
+    } catch (error) {
+      console.log(`error occured in logout controller !! ${error.message}`);
+      res.status(500).json({ message: 'something went wrong, try again later' });
+    }
   },
 };
 
