@@ -5,9 +5,9 @@ const router = Router();
 
 router.post('/create', checkAuth, linkifyCont.create);
 
-router.post('/fetch', linkifyCont.fetch);
+router.get('/fetch', linkifyCont.fetch);
 
-router.post('/fetch/one/:id', linkifyCont.fetchOne);
+router.get('/fetch/:id', linkifyCont.fetchOne);
 
 router.post('/delete/:id', checkAuth, linkifyCont.delete);
 

@@ -31,15 +31,44 @@ const linkify = {
       res.status(500).json({ error: 'inicial server error' });
     }
   },
-  fetch: (req, res) => {
-    // this will fetch some linkifies!
-    res.send('Hello world!');
+  fetch: async (req, res) => {
+    try {
+      const pages = req.query.p || 1;
+      const limit = 3;
+
+      const response = await linkifyModel
+        .find()
+        .skip(pages * limit)
+        .limit(limit);
+
+      res.json(response);
+    } catch (error) {
+      console.log(
+        `error occured in fetch one linkify controller, ${error.message}`,
+      );
+      res.status(500).json({ error: 'inicial server error' });
+    }
   },
-  fetchOne: (req, res) => {
-    res.send('Hello world!');
+  fetchOne: async (req, res) => {
+    try {
+      const fetchThisId = req.params.id;
+
+      const response = await linkifyModel.findOne({ _id: fetchThisId });
+
+      if (response.isPublished === false) {
+        return response.status(500).json({ message: 'linkify is private' });
+      }
+
+      res.status(200).json(response);
+    } catch (error) {
+      console.log(
+        `error occured in fetch one linkify controller, ${error.message}`,
+      );
+      res.status(500).json({ error: 'inicial server error' });
+    }
   },
-  delete: (req, res) => {
-    res.send('Hello world!');
+  delete: async (req, res) => {
+    res.send('Hello World!');
   },
 };
 
