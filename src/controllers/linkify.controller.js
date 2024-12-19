@@ -68,7 +68,19 @@ const linkify = {
     }
   },
   delete: async (req, res) => {
-    res.send('Hello World!');
+    try {
+      const linkifyId = req.params.id;
+      const user = req.user;
+
+      await linkifyModel.deleteOne({ _id: linkifyId, createdBy: user._id });
+
+      res.status(200).json({ message: 'deletion success' });
+    } catch (error) {
+      console.log(
+        `error occured in delete linkify controller, ${error.message}`,
+      );
+      res.status(500).json({ error: 'inicial server error' });
+    }
   },
 };
 
