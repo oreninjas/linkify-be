@@ -13,6 +13,9 @@ const checkAuth = async (req, res, next) => {
     }
 
     const user = await userModel.findOne({ _id: verifyToken.data });
+    if (!user) {
+      return res.status(401).json({ message: 'invalid credentials' });
+    }
     req.user = user;
 
     next();

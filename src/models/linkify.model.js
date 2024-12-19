@@ -1,10 +1,14 @@
-const { Schema, mongoose } = require('mongoose');
+import { Schema, mongoose } from 'mongoose';
 
 const linkifyModel = new Schema(
   {
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: 'user',
+    },
+    title: {
+      type: String,
+      required: true,
     },
     description: {
       type: String,
@@ -23,6 +27,6 @@ const linkifyModel = new Schema(
   { timestamps: true },
 );
 
-const linkiefy = mongoose.model('linkify', linkifyModel);
+const linkify = mongoose.model('linkify', linkifyModel);
 
-export default linkiefy;
+export default linkify;
