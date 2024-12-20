@@ -17,7 +17,7 @@ const authController = {
 
       const isExists = await userModel.findOne({ email });
       if (isExists) {
-        return res.status(401).json({ message: 'invalid credentials' });
+        return res.status(400).json({ message: email });
       }
 
       const salt = await bcrypt.genSalt(10);
@@ -69,7 +69,9 @@ const authController = {
       res.status(200).json({ message: 'Logged Out' });
     } catch (error) {
       console.log(`error occured in logout controller !! ${error.message}`);
-      res.status(500).json({ message: 'something went wrong, try again later' });
+      res
+        .status(500)
+        .json({ message: 'something went wrong, try again later' });
     }
   },
 };
