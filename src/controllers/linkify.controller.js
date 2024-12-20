@@ -72,6 +72,10 @@ const linkify = {
       const linkifyId = req.params.id;
       const user = req.user;
 
+      if (!linkifyId) {
+        return res.status(404).json({ message: 'not found!' });
+      }
+
       await linkifyModel.deleteOne({ _id: linkifyId, createdBy: user._id });
 
       res.status(200).json({ message: 'deletion success' });
