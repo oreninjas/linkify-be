@@ -20,19 +20,22 @@ const authController = {
         return res.status(400).json({ message: 'invalid credentials' });
       }
 
-      email.trim();
+      let trimedEmail = email.trim();
 
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
-      const newUser = await userModel.create({
+      const user = await userModel.create({
         email: trimedEmail,
         password: hashedPassword,
       });
 
-      jwtGeneretor(newUser._id, res);
+      let token = jwtGeneretor(user._id, res);
 
-      res.status(201).json(newUser);
+      // New concept !!
+      delete user._doc.password;
+
+      res.status(201).json({ user, token });
     } catch (error) {
       console.log(`error occured in register controller !! ${error.message}`);
       res.status(500).json({ message: 'internal server error, try again' });

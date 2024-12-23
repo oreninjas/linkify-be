@@ -49,6 +49,19 @@ const linkify = {
       res.status(500).json({ error: 'inicial server error' });
     }
   },
+  UserLinkifies: async (req, res) => {
+    try {
+      const user = req.user;
+      const linkifiesFound = await linkifyModel.find({ createdBy: user._id });
+
+      res.status(200).json(linkifiesFound);
+    } catch (error) {
+      console.log(
+        `error occured in fetch user's linkifies controller, ${error.message}`,
+      );
+      res.status(500).json({ error: 'inicial server error' });
+    }
+  },
   fetchOne: async (req, res) => {
     try {
       const fetchThisId = req.params.id;
