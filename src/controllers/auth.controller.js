@@ -79,6 +79,13 @@ const authController = {
         .json({ message: 'something went wrong, try again later' });
     }
   },
+  protectedRoute: (req, res) => {
+    const user = req.user;
+
+    const token = jwtGeneretor(user._id, res);
+
+    res.status(200).json({ user, token });
+  },
 };
 
 export default authController;
