@@ -56,10 +56,12 @@ const authController = {
       }
 
       const token = jwtGeneretor(user._id, res);
-      
-      delete user._doc.password;
+      console.log(user);
 
-      res.status(200).json(user, token);
+      delete user._doc.password;
+      console.log(user);
+
+      res.status(200).json({ user, token });
     } catch (error) {
       console.log(`error occured in login controller !! ${error.message}`);
       res.status(500).json({ message: 'something went wron, try again later' });
