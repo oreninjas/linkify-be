@@ -7,6 +7,7 @@ const jwtGeneretor = (data, res) => {
   res.cookie('auth_t', token, {
     maxAge: 24 * 60 * 60 * 1000,
     httpOnly: true,
+    secure: true,
   });
 
   return token;
