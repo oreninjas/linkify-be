@@ -56,10 +56,8 @@ const authController = {
       }
 
       const token = jwtGeneretor(user._id, res);
-      console.log(user);
 
       delete user._doc.password;
-      console.log(user);
 
       res.status(200).json({ user, token });
     } catch (error) {
