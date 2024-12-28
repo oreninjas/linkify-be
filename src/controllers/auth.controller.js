@@ -55,12 +55,11 @@ const authController = {
         return res.status(401).json({ message: 'invalid credentials' });
       }
 
-      jwtGeneretor(user._id, res);
+      const token = jwtGeneretor(user._id, res);
+      
+      delete user._doc.password;
 
-      // New concept !!
-      const { password: _, ...userWithoutPassword } = user.toObject();
-
-      res.status(200).json(userWithoutPassword);
+      res.status(200).json(user, token);
     } catch (error) {
       console.log(`error occured in login controller !! ${error.message}`);
       res.status(500).json({ message: 'something went wron, try again later' });
