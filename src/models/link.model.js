@@ -1,6 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
 const linkSchema = new Schema({
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'category',
+  },
   logo: {
     type: String,
   },
@@ -15,10 +19,6 @@ const linkSchema = new Schema({
   link: {
     type: String,
     required: true,
-  },
-  category: {
-    type: Schema.Types.ObjectId,
-    ref: 'category',
   },
 });
 

@@ -18,7 +18,12 @@ const linkifyModel = new Schema(
     linkyImage: {
       type: String,
     },
-    categories: [],
+    categories: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'category',
+      },
+    ],
     isPublished: {
       type: Boolean,
       default: true,
