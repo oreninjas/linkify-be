@@ -6,9 +6,13 @@ import linkifyModel from '../models/linkify.model.js';
 const linkController = {
   create: async (req, res) => {
     try {
-      const { linkifyId } = req.params;
       const user = req.user;
       const { category, description, link } = req.body;
+      const { linkifyId } = req.params;
+      let linkifyDoc = await linkifyModel.findOne({
+        _id: linkifyId,
+      });
+      console.log(linkifyDoc);
 
       if (!category || !description || !link) {
         return res.status(400).json({ message: 'All fields are required !!' });
@@ -30,11 +34,8 @@ const linkController = {
         return res.status(500).json({ message: 'Inicial server error.' });
       }
 
-      await linkifyModel.updateOne(
-        { _id: linkifyId, createdBy: user._id },
-        { $push: { categories: newLink._id } },
-        { new: true },
-      );
+      linkifyDoc.categories.push(newLink._id);
+      await linkifyDoc.save();
 
       res.status(201).json({ message: 'Link added' });
     } catch (error) {
