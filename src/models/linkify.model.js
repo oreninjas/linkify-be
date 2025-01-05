@@ -10,11 +10,6 @@ const linkifyModel = new Schema(
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-      default:
-        'Explore my collection of resources, projects, and useful links. This is where I share the best of what I know and love!',
-    },
     linkyImage: {
       type: String,
     },

@@ -6,6 +6,6 @@ import checkAuth from '../middleware/check.middleware.js';
 import linkController from '../controllers/link.controller.js';
 const router = Router();
 
-router.post('/create', checkAuth, linkController.create);
+router.post('/create/:linkifyId', checkAuth, linkController.create);
 
 export default router;

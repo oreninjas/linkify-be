@@ -14,12 +14,12 @@ const userSchema = new Schema(
       type: String,
       default: '',
     },
-    linkies: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'linkify',
-      },
-    ],
+    // linkies: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'linkify',
+    //   },
+    // ], i'll implement later on :/
     isAdmin: {
       type: Boolean,
       default: false,
