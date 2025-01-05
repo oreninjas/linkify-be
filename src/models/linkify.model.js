@@ -21,7 +21,7 @@ const linkifyModel = new Schema(
     categories: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'category',
+        ref: 'link',
       },
     ],
     isPublished: {

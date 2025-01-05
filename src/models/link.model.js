@@ -2,6 +2,10 @@ import mongoose, { Schema } from 'mongoose';
 
 const linkSchema = new Schema(
   {
+    createdBY: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
     category: {
       type: String,
       required: true,
