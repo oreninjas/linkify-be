@@ -1,4 +1,5 @@
 import linkifyModel from '../models/linkify.model.js';
+import linkModel from '../models/link.model.js';
 
 const linkify = {
   create: async (req, res) => {
@@ -68,11 +69,18 @@ const linkify = {
 
       const response = await linkifyModel.findOne({ _id: fetchThisId });
 
+      // console.log(response.categories);
+      const Categories = await linkModel.find({ _id: response.categories });
+      console.log(Categories);
+
       if (response.isPublished === false) {
         return response.status(500).json({ message: 'linkify is private' });
       }
 
-      res.status(200).json(response);
+      res.status(200).json({
+        categories: Categories,
+        isPublished: response.isPublished,
+      });
     } catch (error) {
       console.log(
         `error occured in fetch one linkify controller, ${error.message}`,

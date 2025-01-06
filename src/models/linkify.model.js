@@ -9,7 +9,7 @@ const linkifyModel = new Schema(
     title: {
       type: String,
       required: true,
-    },
+    }, // Dashboard Title
     linkyImage: {
       type: String,
     },
