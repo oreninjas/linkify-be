@@ -74,13 +74,15 @@ const linkify = {
       console.log(Categories);
 
       if (response.isPublished === false) {
-        return response.status(500).json({ message: 'linkify is private' });
+        return response.status(403).json({ message: 'linkify is private' });
       }
 
-      res.status(200).json({
-        categories: Categories,
-        isPublished: response.isPublished,
-      });
+      res.status(200).json([
+        {
+          categories: Categories,
+          isPublished: response.isPublished,
+        },
+      ]);
     } catch (error) {
       console.log(
         `error occured in fetch one linkify controller, ${error.message}`,
