@@ -69,10 +69,9 @@ const linkify = {
 
       const response = await linkifyModel.findOne({ _id: fetchThisId });
       if (!response) {
-        return response.status(404).json({ message: 'linkify not found' });
+        return res.status(404).json({ message: 'linkify not found' });
       }
 
-      console.log(response.categories);
       const Categories = await linkModel.find({ _id: response.categories });
 
       if (response.isPublished === false) {
