@@ -68,10 +68,12 @@ const linkify = {
       const fetchThisId = req.params.id;
 
       const response = await linkifyModel.findOne({ _id: fetchThisId });
+      if (!response) {
+        return response.status(404).json({ message: 'linkify not found' });
+      }
 
-      // console.log(response.categories);
+      console.log(response.categories);
       const Categories = await linkModel.find({ _id: response.categories });
-      console.log(Categories);
 
       if (response.isPublished === false) {
         return response.status(403).json({ message: 'linkify is private' });

@@ -9,15 +9,15 @@ const linkController = {
       const user = req.user;
       const { category, description, link } = req.body;
       const { linkifyId } = req.params;
+
       let linkifyDoc = await linkifyModel.findOne({
         _id: linkifyId,
       });
-      console.log(linkifyDoc);
 
       if (!category || !description || !link) {
         return res.status(400).json({ message: 'All fields are required !!' });
       }
-      if (category.length > 15) {
+      if (category.length > 20) {
         return res.status(400).json({
           message: "we've reached maximam charanters. Please try again.",
         });
@@ -37,12 +37,12 @@ const linkController = {
       linkifyDoc.categories.push(newLink._id);
       await linkifyDoc.save();
 
-      res.status(201).json({ message: 'Link added' });
+      res.status(201).json({ newLink });
     } catch (error) {
       console.log(
         `There was some issue in link create controller ${error.message}`,
       );
-      return res.status(500).json({ message: 'Inicial server error.' });
+      return res.status(500).json({ message: 'inicial server error.' });
     }
   },
 };
