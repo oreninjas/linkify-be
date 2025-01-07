@@ -1,7 +1,8 @@
 // Hey there, let me guide you throught this file cause the name is confusing, isn't it?
 // So with the name link, i meant to take reference as work releted to performing operations inside `linkify's links` !!
-import linkModel from '../models/link.model.js';
 import linkifyModel from '../models/linkify.model.js';
+import categorySchema from '../models/category.model.js';
+import linkModel from '../models/link.model.js';
 
 const linkController = {
   create: async (req, res) => {
@@ -23,12 +24,19 @@ const linkController = {
         });
       }
 
+      // made here cause might change .save() --> updateOne();
       let newLink = await linkModel.create({
-        createdBy: user._id,
-        category,
         description,
         link,
       });
+
+      let newCategory = await categorySchema.create({
+        createdBy: user._id,
+        category,
+      });
+
+      newCategory.links.push(newLink._id);
+      await newCategory.save();
 
       if (!newLink) {
         return res.status(500).json({ message: 'Inicial server error.' });

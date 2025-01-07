@@ -1,5 +1,5 @@
 import linkifyModel from '../models/linkify.model.js';
-import linkModel from '../models/link.model.js';
+import linkModel from '../models/category.model.js';
 
 const linkify = {
   create: async (req, res) => {
