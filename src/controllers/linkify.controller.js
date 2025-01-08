@@ -71,8 +71,13 @@ const linkify = {
       if (!response) {
         return res.status(404).json({ message: 'linkify not found' });
       }
+      console.log(response.categories);
 
-      const Categories = await linkModel.find({ _id: response.categories });
+      const Categories = await linkModel.find({
+        _id: { $in: response.categories },
+      }); // This request returning `[]` empty arr each time
+      console.log(Categories);
+      
 
       if (response.isPublished === false) {
         return response.status(403).json({ message: 'linkify is private' });
