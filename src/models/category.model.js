@@ -6,7 +6,7 @@ const categorySchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
-    category: {
+    header: {
       type: String,
       required: true,
     },

@@ -1,5 +1,5 @@
 import linkifyModel from '../models/linkify.model.js';
-import linkModel from '../models/category.model.js';
+import linkModel from '../models/link.model.js';
 
 const linkify = {
   create: async (req, res) => {
@@ -71,13 +71,10 @@ const linkify = {
       if (!response) {
         return res.status(404).json({ message: 'linkify not found' });
       }
-      console.log(response.categories);
 
       const Categories = await linkModel.find({
         _id: { $in: response.categories },
-      }); // This request returning `[]` empty arr each time
-      console.log(Categories);
-      
+      }); // This request returning `[]` empty arr each time :Fixed
 
       if (response.isPublished === false) {
         return response.status(403).json({ message: 'linkify is private' });

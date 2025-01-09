@@ -8,17 +8,17 @@ const linkController = {
   create: async (req, res) => {
     try {
       const user = req.user;
-      const { category, description, link } = req.body;
+      const { header, description, link } = req.body;
       const { linkifyId } = req.params;
 
       let linkifyDoc = await linkifyModel.findOne({
         _id: linkifyId,
       });
 
-      if (!category || !description || !link) {
+      if (!header || !description || !link) {
         return res.status(400).json({ message: 'All fields are required !!' });
       }
-      if (category.length > 20) {
+      if (header.length > 20) {
         return res.status(400).json({
           message: "we've reached maximam charanters. Please try again.",
         });
@@ -32,7 +32,7 @@ const linkController = {
 
       let newCategory = await categorySchema.create({
         createdBy: user._id,
-        category,
+        header,
       });
 
       newCategory.links.push(newLink._id);
