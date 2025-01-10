@@ -1,5 +1,6 @@
 import linkifyModel from '../models/linkify.model.js';
 import linkModel from '../models/link.model.js';
+import categoryModel from '../models/category.model.js';
 
 const linkify = {
   create: async (req, res) => {
@@ -65,27 +66,48 @@ const linkify = {
   },
   fetchOne: async (req, res) => {
     try {
-      const fetchThisId = req.params.id;
+      const { id } = req.params;
 
-      const response = await linkifyModel.findOne({ _id: fetchThisId });
-      if (!response) {
+      const linkify = await linkifyModel.findOne({ _id: id });
+
+      if (!linkify) {
         return res.status(404).json({ message: 'linkify not found' });
       }
 
-      const Categories = await linkModel.find({
-        _id: { $in: response.categories },
-      }); // This request returning `[]` empty arr each time :Fixed
+      console.log(linkify);
 
-      if (response.isPublished === false) {
-        return response.status(403).json({ message: 'linkify is private' });
-      }
+      const categories = await categoryModel.find({
+        links: { $in: linkify.categories },
+      });
+      console.log(categories);
 
-      res.status(200).json([
-        {
-          categories: Categories,
-          isPublished: response.isPublished,
-        },
-      ]);
+      res
+        .status(200)
+        .json([{ categories, isPublished: categories.isPublished }]);
+
+      // const links =
+
+      // const fetchThisId = req.params.id;
+
+      // const response = await linkifyModel.findOne({ _id: fetchThisId });
+      // if (!response) {
+      //   return res.status(404).json({ message: 'linkify not found' });
+      // }
+
+      // const Categories = await linkModel.find({
+      //   _id: { $in: response.categories },
+      // }); // This request returning `[]` empty arr each time :Fixed
+
+      // if (response.isPublished === false) {
+      //   return response.status(403).json({ message: 'linkify is private' });
+      // }
+
+      // res.status(200).json([
+      //   {
+      //     categories: Categories, // links
+      //     isPublished: response.isPublished,
+      //   },
+      // ]);
     } catch (error) {
       console.log(
         `error occured in fetch one linkify controller, ${error.message}`,
