@@ -70,44 +70,17 @@ const linkify = {
 
       const linkify = await linkifyModel.findOne({ _id: id });
 
-      if (!linkify) {
+      if (!linkify || linkify.isPublished === false) {
         return res.status(404).json({ message: 'linkify not found' });
       }
-
-      console.log(linkify);
 
       const categories = await categoryModel.find({
         links: { $in: linkify.categories },
       });
-      console.log(categories);
 
       res
         .status(200)
         .json([{ categories, isPublished: categories.isPublished }]);
-
-      // const links =
-
-      // const fetchThisId = req.params.id;
-
-      // const response = await linkifyModel.findOne({ _id: fetchThisId });
-      // if (!response) {
-      //   return res.status(404).json({ message: 'linkify not found' });
-      // }
-
-      // const Categories = await linkModel.find({
-      //   _id: { $in: response.categories },
-      // }); // This request returning `[]` empty arr each time :Fixed
-
-      // if (response.isPublished === false) {
-      //   return response.status(403).json({ message: 'linkify is private' });
-      // }
-
-      // res.status(200).json([
-      //   {
-      //     categories: Categories, // links
-      //     isPublished: response.isPublished,
-      //   },
-      // ]);
     } catch (error) {
       console.log(
         `error occured in fetch one linkify controller, ${error.message}`,
