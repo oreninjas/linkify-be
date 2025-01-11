@@ -8,7 +8,6 @@ const categorySchema = new Schema(
     },
     header: {
       type: String,
-      required: true,
     },
     links: [
       {

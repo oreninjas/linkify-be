@@ -6,9 +6,9 @@ import checkAuth from '../middleware/check.middleware.js';
 import linkController from '../controllers/link.controller.js';
 const router = Router();
 
-router.post('/create/:linkifyId', checkAuth, linkController.create);
+router.post('/create/:id', checkAuth, linkController.create);
 
 // Fetch whole links
-router.get('/fetch/:id', checkAuth, linkController.fetchOneCategory) // :id refers to intire category;
+router.get('/fetch/:id', checkAuth, linkController.fetchOneCategory); // :id refers to intire category;
 
 export default router;
