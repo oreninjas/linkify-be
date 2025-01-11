@@ -1,5 +1,4 @@
 import linkifyModel from '../models/linkify.model.js';
-import linkModel from '../models/link.model.js';
 import categoryModel from '../models/category.model.js';
 
 const linkify = {
@@ -68,22 +67,24 @@ const linkify = {
     try {
       const { id } = req.params;
 
-      const linkify = await linkifyModel.findOne({ _id: id });
+      const linkify = await linkifyModel.findById(id);
+      console.log(linkify);
 
       if (!linkify || linkify.isPublished === false) {
         return res.status(404).json({ message: 'linkify not found' });
       }
 
       const categories = await categoryModel.find({
-        links: { $in: linkify.categories },
+        _id: { $in: linkify.categories },
       });
+      console.log(categories);
 
-      res.status(200).json({ categories, isPublished: categories.isPublished });
+      res.status(200).json({ categories, isPublished: linkify.isPublished });
     } catch (error) {
       console.log(
         `error occured in fetch one linkify controller, ${error.message}`,
       );
-      res.status(500).json({ error: 'inicial server error' });
+      res.status(500).json({ error: 'internal server error' });
     }
   },
   delete: async (req, res) => {
