@@ -8,4 +8,7 @@ const router = Router();
 
 router.post('/create/:linkifyId', checkAuth, linkController.create);
 
+// Fetch whole links
+router.get('/fetch/:id', checkAuth, linkController.fetchOneCategory) // :id refers to intire category;
+
 export default router;

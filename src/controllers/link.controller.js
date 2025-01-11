@@ -53,6 +53,15 @@ const linkController = {
       return res.status(500).json({ message: 'inicial server error.' });
     }
   },
+  fetchOneCategory: async (req, res) => {
+    const { id } = req.params; // category id
+
+    const category = await categorySchema.findById(id);
+
+    const links = await linkModel.find({ _id: { $in: category.links } });
+
+    res.status(200).json(links);
+  },
 };
 
 export default linkController;

@@ -78,9 +78,7 @@ const linkify = {
         links: { $in: linkify.categories },
       });
 
-      res
-        .status(200)
-        .json([{ categories, isPublished: categories.isPublished }]);
+      res.status(200).json({ categories, isPublished: categories.isPublished });
     } catch (error) {
       console.log(
         `error occured in fetch one linkify controller, ${error.message}`,
